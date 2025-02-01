@@ -77,16 +77,16 @@ export default function Dashboard() {
 
           {/* Additional GitHub Info */}
           {githubData && githubData.profile && (
-            <div className="mt-4 flex space-x-4 text-white">
-              <div><b>Followers:</b> {githubData.profile.followers}</div>
-              <div><b>Repos:</b> {githubData.profile.public_repos}</div>
+            <div className="mt-4 flex space-x-4 text-white font-bold">
+              <div>Followers: {githubData.profile.followers}</div>
+              <div>Repos: {githubData.profile.public_repos}</div>
             </div>
           )}
 
           {/* Repositories */}
           {githubData && githubData.profile && (
             <div className="mt-6">
-              <h3 className="text-sm font-medium mb-2 text-white"><b>Repositories</b></h3>
+              <h3 className="text-sm font-medium mb-2 text-white">Repositories</h3>
               <div className="flex flex-wrap gap-2">
                 {githubData.repos.slice(0, 5).map((repo: any) => (
                   <div
@@ -147,11 +147,11 @@ export default function Dashboard() {
           {leetcodeData &&
             leetcodeData.data &&
             leetcodeData.data.matchedUser && (
-              <div className="mt-4 grid grid-cols-2 gap-4 text-sm text-white">
-                <div><b>Rank:</b> {leetcodeData.data.matchedUser.profile.ranking}</div>
-                <div><b>Reputation:</b> {leetcodeData.data.matchedUser.profile.reputation}</div>
-                <div><b>Solutions:</b> {leetcodeData.data.matchedUser.profile.solutionCount}</div>
-                <div><b>Country:</b> {leetcodeData.data.matchedUser.profile.countryName}</div>
+              <div className="mt-4 grid grid-cols-2 gap-4 text-sm text-white font-bold">
+                <div>Rank: {leetcodeData.data.matchedUser.profile.ranking}</div>
+                <div>Reputation: {leetcodeData.data.matchedUser.profile.reputation}</div>
+                <div>Solutions: {leetcodeData.data.matchedUser.profile.solutionCount}</div>
+                <div>Country: {leetcodeData.data.matchedUser.profile.countryName}</div>
               </div>
             )}
 
@@ -160,7 +160,7 @@ export default function Dashboard() {
             leetcodeData.data &&
             leetcodeData.data.matchedUser && (
               <div className="mt-6">
-                <h3 className="text-sm font-medium mb-2 text-white"><b>Submission Stats</b></h3>
+                <h3 className="text-sm font-medium mb-2 text-white">Submission Stats</h3>
                 <div className="flex flex-wrap gap-2">
                   {leetcodeData.data.matchedUser.submitStats.acSubmissionNum.map(
                     (entry: any) => (
@@ -173,6 +173,33 @@ export default function Dashboard() {
                     )
                   )}
                 </div>
+              </div>
+            )}
+
+          {/* Skills & Topics */}
+          {leetcodeData &&
+            leetcodeData.data &&
+            leetcodeData.data.matchedUser &&
+            leetcodeData.data.matchedUser.tagProblemCounts && (
+              <div className="mt-6">
+                <h3 className="text-sm font-medium mb-2 text-white">Skills & Topics</h3>
+                {Object.entries(leetcodeData.data.matchedUser.tagProblemCounts).map(
+                  ([level, tags]: [string, any]) => (
+                    <div key={level} className="mb-2">
+                      <div className="font-bold text-white capitalize">{level}</div>
+                      <div className="flex flex-wrap gap-2">
+                        {tags.map((tag: any) => (
+                          <div
+                            key={tag.tagSlug}
+                            className="bg-gray-700 rounded-full px-3 py-1 text-xs text-gray-300"
+                          >
+                            {tag.tagName}: {tag.problemsSolved}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )
+                )}
               </div>
             )}
         </div>
